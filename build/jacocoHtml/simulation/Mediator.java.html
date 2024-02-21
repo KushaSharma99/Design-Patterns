@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Mediator.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Design-Patterns</a> &gt; <a href="index.source.html" class="el_package">simulation</a> &gt; <span class="el_source">Mediator.java</span></div><h1>Mediator.java</h1><pre class="source lang-java linenums">package simulation;
+
+import battle.Battle;
+import characters.Character;
+import dungeon.Dungeon;
+import enemy.Enemy;
+import floor.Floor;
+
+/**
+ * Mediates the simulation of exploring dungeons and battling enemies.
+ */
+public class Mediator {
+    private final Dungeon dungeon;
+    private final Character playerCharacter;
+
+    /**
+     * Constructs a Mediator with a dungeon and a player character.
+     *
+     * @param dungeon The dungeon to be explored.
+
+     */
+<span class="nc" id="L22">    public Mediator(Dungeon dungeon, Character playerCharacter) {</span>
+<span class="nc" id="L23">        this.dungeon = dungeon;</span>
+<span class="nc" id="L24">        this.playerCharacter = playerCharacter;</span>
+<span class="nc" id="L25">    }</span>
+
+    /**
+     * Starts the dungeon exploration and battle simulation.
+     */
+    public void startSimulation() {
+<span class="nc" id="L31">        int currentFloor = 1;</span>
+
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        while (currentFloor &lt;= dungeon.getMaxFloor()) {</span>
+<span class="nc" id="L34">            System.out.println(&quot;\n=== Floor &quot; + currentFloor + &quot; ===&quot;);</span>
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">            if (playerCharacter.getMaxHealth() &lt;= 0.15 * playerCharacter.getMaxHealth()) {</span>
+<span class="nc" id="L37">                System.out.println(&quot;Your health is critically low! Returning to the top floor...&quot;);</span>
+<span class="nc" id="L38">                playerCharacter.heal((int) (0.85 * playerCharacter.getMaxHealth()));</span>
+<span class="nc" id="L39">                currentFloor = 1;</span>
+            } else {
+<span class="nc" id="L41">                exploreFloor(currentFloor);</span>
+
+<span class="nc bnc" id="L43" title="All 2 branches missed.">                if (currentFloor % 10 == 0) {</span>
+<span class="nc" id="L44">                    System.out.println(&quot;\n=== BOSS BATTLE ===&quot;);</span>
+<span class="nc" id="L45">                    Floor floor = new Floor(dungeon.getCurrentFloor());</span>
+<span class="nc" id="L46">                    Enemy boss = floor.getBoss();</span>
+
+<span class="nc" id="L48">                    Battle battle = new Battle(playerCharacter, boss);</span>
+<span class="nc" id="L49">                    battle.startBattle();</span>
+
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (playerCharacter.isAlive()) {</span>
+<span class="nc" id="L52">                        System.out.println(&quot;Congratulations! you  won the game!&quot;);</span>
+<span class="nc" id="L53">                        break;</span>
+                    } else {
+<span class="nc" id="L55">                        System.out.println(&quot;You were defeated by the boss. Game over!&quot;);</span>
+<span class="nc" id="L56">                        break;</span>
+                    }
+                }
+<span class="nc" id="L59">                currentFloor++;</span>
+            }
+        }
+<span class="nc" id="L62">        System.out.println(&quot;\n=== GAME OVER ===&quot;);</span>
+<span class="nc" id="L63">    }</span>
+
+    /**
+     * Explores the specified floor of the dungeon.
+     *
+     * @param floorNumber The floor number to explore.
+     */
+    private void exploreFloor(int floorNumber) {
+<span class="nc" id="L71">        Floor floor = new Floor(dungeon.getCurrentFloor());</span>
+<span class="nc" id="L72">        floor.exploreFloor(playerCharacter);</span>
+<span class="nc" id="L73">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

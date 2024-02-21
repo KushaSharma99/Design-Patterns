@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Character.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Design-Patterns</a> &gt; <a href="index.source.html" class="el_package">characters</a> &gt; <span class="el_source">Character.java</span></div><h1>Character.java</h1><pre class="source lang-java linenums">package characters;
+
+import item.Item;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Represents an abstract character in the game.
+ */
+public abstract class Character {
+    protected String name;
+    protected int level;
+    protected int health;
+    protected int mana;
+    protected int gold;
+    protected int experiencePoints;
+    protected List&lt;Item&gt; inventory;
+
+    /**
+     * Constructor to create a character with default attributes.
+     *
+     * @param name The name of the character.
+     */
+<span class="nc" id="L25">    public Character(String name) {</span>
+<span class="nc" id="L26">        this.name = name;</span>
+<span class="nc" id="L27">        this.level = 1;</span>
+<span class="nc" id="L28">        this.health = 100;</span>
+<span class="nc" id="L29">        this.mana = 100;</span>
+<span class="nc" id="L30">        this.gold = 200;</span>
+<span class="nc" id="L31">        this.inventory = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L32">    }</span>
+
+    /**
+     * Constructor to create a character with specified attributes.
+     *
+     * @param name   The name of the character.
+     * @param level  The level of the character.
+     * @param health The health of the character.
+     * @param mana   The mana of the character.
+     * @param gold   The gold of the character.
+     */
+<span class="fc" id="L43">    public Character(String name, int level, int health, int mana, int gold) {</span>
+<span class="fc" id="L44">        this.name = name;</span>
+<span class="fc" id="L45">        this.level = level;</span>
+<span class="fc" id="L46">        this.health = health;</span>
+<span class="fc" id="L47">        this.mana = mana;</span>
+<span class="fc" id="L48">        this.gold = gold;</span>
+<span class="fc" id="L49">        this.inventory = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L50">    }</span>
+
+    /**
+     * Abstract method for character to perform an attack on another character.
+     *
+     * @param target The target character to attack.
+     */
+    public abstract void attack(Character target);
+
+    /**
+     * Abstract method for character to perform an attack.
+     */
+    public abstract void attack();
+
+    /**
+     * Abstract method for character to use a skill.
+     */
+    public abstract void useSkill();
+
+    /**
+     * Gets the name of the character.
+     *
+     * @return The name of the character.
+     */
+    public String getName() {
+<span class="fc" id="L75">        return name;</span>
+    }
+
+    /**
+     * Checks if the character is still alive.
+     *
+     * @return true if the character is alive, false otherwise.
+     */
+    public boolean isAlive() {
+<span class="nc bnc" id="L84" title="All 2 branches missed.">        return health &gt; 0;</span>
+    }
+
+    /**
+     * Calculates the damage that the character can inflict.
+     *
+     * @return The amount of damage.
+     */
+    public int calculateDamage() {
+<span class="nc" id="L93">        int baseDamage = 10;</span>
+<span class="nc" id="L94">        int levelMultiplier = 2;</span>
+<span class="nc" id="L95">        return baseDamage + (level * levelMultiplier);</span>
+    }
+
+    /**
+     * Applies damage to the character, reducing their health.
+     *
+     * @param damage The amount of damage to apply.
+     */
+    public void takeDamage(int damage) {
+<span class="fc" id="L104">        health -= damage;</span>
+<span class="pc bpc" id="L105" title="1 of 2 branches missed.">        if (health &lt; 0) {</span>
+<span class="nc" id="L106">            health = 0;</span>
+        }
+<span class="fc" id="L108">    }</span>
+
+    /**
+     * Gets the current amount of gold the character has.
+     *
+     * @return The amount of gold.
+     */
+    public int getGold() {
+<span class="nc" id="L116">        return gold;</span>
+    }
+
+    /**
+     * Decreases the amount of gold the character has.
+     *
+     * @param amount The amount to decrease.
+     */
+    public void decreaseGold(int amount) {
+<span class="nc" id="L125">        gold -= amount;</span>
+<span class="nc" id="L126">    }</span>
+
+    /**
+     * Adds an item to the character's inventory.
+     *
+     * @param item The item to add.
+     */
+    public void addItemToInventory(Item item) {
+<span class="nc" id="L134">        inventory.add(item);</span>
+<span class="nc" id="L135">        System.out.println(item.getName() + &quot; has been added to your inventory.&quot;);</span>
+<span class="nc" id="L136">    }</span>
+
+    /**
+     * Heals the character by a specified amount.
+     *
+     * @param amount The amount to heal.
+     */
+    public void heal(int amount) {
+<span class="fc" id="L144">        health = Math.min(health + amount, getMaxHealth());</span>
+<span class="fc" id="L145">    }</span>
+
+    /**
+     * Increases the experience points of the character.
+     *
+     * @param experiencePoints The amount of experience points to add.
+     */
+    public void gainExperience(int experiencePoints) {
+<span class="nc" id="L153">        this.experiencePoints += experiencePoints;</span>
+<span class="nc" id="L154">    }</span>
+
+    /**
+     * Restores the character's mana to the maximum.
+     */
+    public void restoreMana() {
+<span class="nc" id="L160">        mana = getMaxMana();</span>
+<span class="nc" id="L161">    }</span>
+
+    /**
+     * Displays the character's current stats.
+     */
+    public void displayStats() {
+<span class="nc" id="L167">        System.out.println(&quot;===== Character Stats =====&quot;);</span>
+<span class="nc" id="L168">        System.out.println(&quot;Name: &quot; + getName());</span>
+<span class="nc" id="L169">        System.out.println(&quot;Level: &quot; + level);</span>
+<span class="nc" id="L170">        System.out.println(&quot;Health: &quot; + health + &quot;/&quot; + getMaxHealth());</span>
+<span class="nc" id="L171">        System.out.println(&quot;Mana: &quot; + mana + &quot;/&quot; + getMaxMana());</span>
+<span class="nc" id="L172">        System.out.println(&quot;Experience Points: &quot; + experiencePoints);</span>
+<span class="nc" id="L173">    }</span>
+
+    /**
+     * Displays the items in the character's inventory.
+     */
+    public void displayInventory() {
+<span class="nc" id="L179">        System.out.println(&quot;===== Inventory =====&quot;);</span>
+<span class="nc" id="L180">        System.out.println(&quot;Gold: &quot; + gold);</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">        if (inventory.isEmpty()) {</span>
+<span class="nc" id="L182">            System.out.println(&quot;Inventory is empty.&quot;);</span>
+        } else {
+<span class="nc" id="L184">            System.out.println(&quot;Items:&quot;);</span>
+<span class="nc" id="L185">            inventory.forEach(item -&gt; System.out.println(&quot;- &quot; + item.getName()));</span>
+        }
+<span class="nc" id="L187">    }</span>
+
+    /**
+     * Levels up the character, improving their attributes.
+     */
+    public void levelUp() {
+<span class="fc" id="L193">        level++;</span>
+<span class="fc" id="L194">        health += 50;</span>
+<span class="fc" id="L195">        mana += 50;</span>
+<span class="fc" id="L196">        gold += 100;</span>
+<span class="fc" id="L197">    }</span>
+
+    /**
+     * Abstract method to get the maximum mana of the character.
+     *
+     * @return The maximum mana.
+     */
+    public abstract int getMaxMana();
+
+    /**
+     * Abstract method to get the maximum health of the character.
+     *
+     * @return The maximum health.
+     */
+    public abstract int getMaxHealth();
+
+    /**
+     * Gets the current level of the character.
+     *
+     * @return The level of the character.
+     */
+    public int getLevel() {
+<span class="fc" id="L219">        return level;</span>
+    }
+
+    /**
+     * Gets the current health of the character.
+     *
+     * @return The current health.
+     */
+    public int getCurrentHealth() {
+<span class="fc" id="L228">        return health;</span>
+    }
+
+    /**
+     * Sets the current health of the character. This method is intentionally left blank.
+     *
+     * @param i The intended health value.
+     */
+    public void setCurrentHealth(int i) {
+        // Intentionally left blank.
+<span class="fc" id="L238">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
