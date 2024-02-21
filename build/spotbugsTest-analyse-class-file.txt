@@ -1,4 +1,0 @@
-/home/kusha/Desktop/Design-Patterns/build/classes/java/test/ItemTest.class
-/home/kusha/Desktop/Design-Patterns/build/classes/java/test/CharacterTest.class
-/home/kusha/Desktop/Design-Patterns/build/classes/java/test/EnemyTest.class
-/home/kusha/Desktop/Design-Patterns/build/classes/java/test/CharacterTest$1.class

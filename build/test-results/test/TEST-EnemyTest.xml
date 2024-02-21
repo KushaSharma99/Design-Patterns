@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="EnemyTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-02-21T16:36:52" hostname="kusha-VivoBook" time="0.066">
-  <properties/>
-  <testcase name="testAttack" classname="EnemyTest" time="0.066"/>
-  <testcase name="testTakeDamage" classname="EnemyTest" time="0.0"/>
-  <system-out><![CDATA[SmallEnemy attacks for 10 damage.
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
